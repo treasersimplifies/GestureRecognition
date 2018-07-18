@@ -4,16 +4,26 @@
 #include "led.h"
 #include "key.h"
 //#include "lcd.h"
+#include "timer.h"
 #include "adc.h"
 #include "dac.h"
 #include "mpu6050.h"
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h" 
+#include "mypid.h"
+#include "matrixkey.h"
 //Pins used：
-//PB9,PB8 : I2C for MPU6050
-//PC0 : INT for MPU6050
-//PA5 : ADC CH5, 12bit mode
-//PA4 : DAC CH1, 12bit
+//1.PB9,PB8 : I2C for MPU6050
+//2.PC0 : INT for MPU6050
+//3.PA5 : ADC Input  CH5, 12bit mode
+//4.PA4 : DAC Output CH1, 12bit
+//5.PB0-PB7 : 4X4 matrix keys
+
+//Abilities:
+//1.PID 采样频率由TIM3定时器决定
+//
+
+
 
 //串口1发送1个字符 
 //c:要发送的字符
@@ -112,16 +122,21 @@ void MPU6050_Perform(){
 
 int main(void)
 { 
-	u8 report=1;			//默认开启上报
-	u8 key;
-	u16 adcx;
+	//u8 report=1;			//默认开启上报
+	//u8 key;
+	//u16 adcx;
 	u16 dacval=0;
-	float adcvalue;
+	//float adcvalue;
 	
 	float pitch,roll,yaw; 		//欧拉角
 	short aacx,aacy,aacz;		//加速度传感器原始数据
 	short gyrox,gyroy,gyroz;	//陀螺仪原始数据
 	short temp;					//温度
+	
+	extern double pidin,pidout,pidref;
+	
+	int row=0;
+	int column=0;
 	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	delay_init(168);  			//初始化延时函数
@@ -130,27 +145,29 @@ int main(void)
 	KEY_Init();					//初始化按键
  	//LCD_Init();				//LCD初始化
 	MPU_Init();					//初始化MPU6050
-	Adc_Init();         		//初始化ADC
-	Dac1_Init();		 		//DAC通道1初始化	
+	Adc_Init();         		//初始化ADC, 0-4095
+	Dac1_Init();		 		//DAC通道1初始化	,0-4095
+	TIM3_Int_Init(1000-1,8400-1);	//定时器时钟84M，分频系数8400，所以84M/8400=10Khz的计数频率，计数1000次为100ms，every 0.1s一次中断 
+	//delay_ms(150);
+	MATRI4X4KEY_Init();
+	
+	pidref=1000;
+	PID_Init(&pidin,&pidout,&pidref,1,1,1, P_ON_M, DIRECT);//p,i,d=1,1,1
+	SetOutputLimits(1,4000);
 	
 	//MPU6050_MUST_Init();
 	DAC_SetChannel1Data(DAC_Align_12b_R,dacval);//初始值为0
-	dacval=2000;
+	//dacval=2000;
 	
  	while(1)
 	{
 		printf("running....\n");
 		delay_ms(500);
-		/*  DAC output part  */
-		DAC_SetChannel1Data(DAC_Align_12b_R, dacval);//设置DAC值
+		if(MATRI4_4KEY_Scan(&row, &column)==0)
+			printf("key pressed row=%d, column=%d\n",row,column);
 		
-		/*  ADC read in part  */
-		adcx=Get_Adc_Average(ADC_Channel_5,20);//获取通道5的转换值，20次取平均
-		adcvalue=(float)adcx*(3.3/4096);          //获取计算后的带小数的实际电压值，比如3.1111
-		adcx=adcvalue;                            //赋值整数部分给adcx变量，因为adcx为u16整形
-		delay_ms(250);	
-		printf("ADC in : %f",adcvalue);
-		
+		//***************************
+
 		/* MPU6050 measure part */
 		if(mpu_dmp_get_data(&pitch,&roll,&yaw)==0)//=0 means success
 		{ 

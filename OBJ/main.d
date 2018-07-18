@@ -40,9 +40,12 @@
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\LED\led.h
 ..\obj\main.o: ..\HARDWARE\KEY\key.h
+..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\ADC\adc.h
 ..\obj\main.o: ..\HARDWARE\DAC\dac.h
 ..\obj\main.o: ..\HARDWARE\MPU6050\mpu6050.h
 ..\obj\main.o: ..\HARDWARE\IIC\myiic.h
 ..\obj\main.o: ..\HARDWARE\MPU6050\eMPL\inv_mpu.h
 ..\obj\main.o: ..\HARDWARE\MPU6050\eMPL\inv_mpu_dmp_motion_driver.h
+..\obj\main.o: ..\HARDWARE\MYPID\mypid.h
+..\obj\main.o: ..\HARDWARE\MATRIXKEY\matrixkey.h

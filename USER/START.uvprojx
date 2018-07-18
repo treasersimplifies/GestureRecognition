@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\TIMER;..\HARDWARE\MYPID;..\HARDWARE\MATRIXKEY</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -472,6 +472,21 @@
               <FileName>dac.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\DAC\dac.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\TIMER\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>mypid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\MYPID\mypid.c</FilePath>
+            </File>
+            <File>
+              <FileName>matrixkey.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\MATRIXKEY\matrixkey.c</FilePath>
             </File>
           </Files>
         </Group>
