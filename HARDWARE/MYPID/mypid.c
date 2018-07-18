@@ -29,7 +29,7 @@ unsigned long SampleTime;
 double outMin, outMax;
 //int inAuto, pOnE;
 //BOOL pOnE = TRUE, pOnM = FALSE;//determine whether PonE or PonM
-BOOL inAuto;				   //determine whether auto or manual
+BOOL inAuto=AUTOMATIC;				   //determine whether auto or manual
 int pOn;
 int controllerDirection = DIRECT;
 
@@ -81,7 +81,7 @@ BOOL PID_Compute()
       double dInput = (input - lastInput);
 	  double output;
 	
-		if(inAuto==MANUAL) return FALSE;	//inAuto=MANUAL=0=FALSE
+	  if(inAuto==MANUAL) return FALSE;	//inAuto=MANUAL=0=FALSE
       outputSum+= (ki * error);
 
       /*Add Proportional on Measurement, if P_ON_M is specified*/
@@ -221,8 +221,9 @@ void SetControllerDirection(int Direction)
 }
 
 
-void ShowConfig(void){
+void PID_ShowConfig(void){
 	printf("SampleTime = %ld, outMin=%f, outMax=%f, inAuto=%d, pOn=%d, controllerDirection =%d\n",SampleTime,outMin,outMax,inAuto,pOn,controllerDirection);
+	printf("Setpoint = %f, Output=%f, Input=%f, lastInput=%f, outputSum=%f, p,i,d =%f,%f,%f \n",*mySetpoint,*myOutput,*myInput,lastInput,outputSum,dispKp,dispKi,dispKd);
 }
 
 

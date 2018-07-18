@@ -152,8 +152,8 @@ int main(void)
 	MATRI4X4KEY_Init();
 	
 	pidref=1000;
-	PID_Init(&pidin,&pidout,&pidref,1,1,1, P_ON_M, DIRECT);//p,i,d=1,1,1
-	SetOutputLimits(1,4000);
+	PID_Init(&pidin,&pidout,&pidref,2,0,0, P_ON_M, DIRECT);//p,i,d=1,1,1
+	SetOutputLimits(1,500);
 	
 	//MPU6050_MUST_Init();
 	DAC_SetChannel1Data(DAC_Align_12b_R,dacval);//³õÊ¼ÖµÎª0
@@ -163,8 +163,8 @@ int main(void)
 	{
 		printf("running....\n");
 		delay_ms(500);
-		if(MATRI4_4KEY_Scan(&row, &column)==0)
-			printf("key pressed row=%d, column=%d\n",row,column);
+		//if(MATRI4_4KEY_Scan(&row, &column)==0)
+			//printf("key pressed row=%d, column=%d\n",row,column);
 		
 		//***************************
 

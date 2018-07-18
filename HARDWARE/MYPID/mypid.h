@@ -45,7 +45,7 @@ void SetControllerDirection(int);	  // * Sets the Direction, or "Action" of the 
 										  //   means the opposite.  it's very unlikely that this will be needed
 										  //   once it is set in the constructor.							  
 
-void ShowConfig(void);
+void PID_ShowConfig(void);
 
   //Display functions ****************************************************************
 double GetKp(void);						  // These functions query the pid for interal values.
