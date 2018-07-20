@@ -27,5 +27,6 @@ typedef struct{
 void MATRI4X4KEY_Init(void);
 int MATRI4X4KEY_Scan(int * row, int * column);
 int MATRI4_4KEY_Scan(int * row, int * column);
-
+//int equal2(int row,int column,int expect_row,int expect_column);
+//int Parse_Key(int row,int column);
 #endif

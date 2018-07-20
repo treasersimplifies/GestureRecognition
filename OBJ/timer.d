@@ -42,4 +42,3 @@
 ..\obj\timer.o: ..\HARDWARE\ADC\adc.h
 ..\obj\timer.o: ..\SYSTEM\usart\usart.h
 ..\obj\timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\timer.o: ..\HARDWARE\MYPID\mypid.h

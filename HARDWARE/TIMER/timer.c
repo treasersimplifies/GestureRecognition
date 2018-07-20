@@ -5,7 +5,8 @@
 #include "dac.h"
 #include "adc.h"
 #include "usart.h"
-#include "mypid.h"
+//#include "mypid.h"
+
 //通用定时器3中断初始化
 //arr：自动重装值。
 //psc：时钟预分频数

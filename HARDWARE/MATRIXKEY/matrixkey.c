@@ -9,7 +9,7 @@ void MATRI4X4KEY_Init(void){
 	int i;
 	RCC->AHB1ENR|=1<<1;//使能PORTB时钟 
 	GPIO_Set(GPIOB,PIN0|PIN1|PIN2|PIN3,GPIO_MODE_OUT,GPIO_OTYPE_PP,GPIO_SPEED_100M,GPIO_PUPD_PD); //PB0-PB3设置为输出模式
-	GPIO_Set(GPIOB,PIN4|PIN5|PIN6|PIN7,GPIO_MODE_IN,0,0,GPIO_PUPD_PD); //PB4-PB7设置为输入模式
+	GPIO_Set(GPIOA,PIN0|PIN1|PIN2|PIN3,GPIO_MODE_IN,0,0,GPIO_PUPD_PD); //PB4-PB7设置为输入模式
 	for(i=0;i<4;i++){//将全部的行输出0，
 		BIT_ADDR(GPIOB_ODR_Addr,i)=0;  
 	}	
@@ -22,13 +22,14 @@ int MATRI4_4KEY_Scan(int * row, int * column){
 	
 	for(i=3;i>=0;i--){
 		PBout(i)=1;
-		for(j=5;j<8;j++){
-			if(PBin(j)==1){
+		for(j=0;j<4;j++){
+			if(PAin(j)==1){
 				delay_ms(10);
-				if(PBin(j)==1){//双重判断，消抖
-					printf("into PBin(%d)=1\n",j);
-					*row = 5-(i+1);
-					*column = j-3;
+				if(PAin(j)==1){//双重判断，消抖
+					//printf("into PBin(%d)=1\n",j);
+					*row = i+1;
+					*column = j+1;
+					PBout(i)=0;
 					//printf("row = %d, column = %d \n",i,j);
 					//delay_ms(1000);
 					return 0;
@@ -40,6 +41,10 @@ int MATRI4_4KEY_Scan(int * row, int * column){
 	return -1;
 	
 }
+
+
+//NOT USED:
+
 //行列反转法：
 int MATRI4X4KEY_Scan(int * row, int * column){
 	int i,j;

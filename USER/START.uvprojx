@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\TIMER;..\HARDWARE\MYPID;..\HARDWARE\MATRIXKEY</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\TIMER;..\HARDWARE\MYPID;..\HARDWARE\MATRIXKEY;..\HARDWARE\STEPMOTOR;..\HARDWARE\FDC2214;..\HARDWARE\NIXIETUBE;..\HARDWARE\LCD</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -449,44 +449,14 @@
               <FilePath>..\HARDWARE\IIC\myiic.c</FilePath>
             </File>
             <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\MPU6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>inv_mpu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\MPU6050\eMPL\inv_mpu.c</FilePath>
-            </File>
-            <File>
-              <FileName>inv_mpu_dmp_motion_driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\MPU6050\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\ADC\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\DAC\dac.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\TIMER\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>mypid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\MYPID\mypid.c</FilePath>
-            </File>
-            <File>
               <FileName>matrixkey.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\MATRIXKEY\matrixkey.c</FilePath>
+            </File>
+            <File>
+              <FileName>fdc2214.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\FDC2214\fdc2214.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -529,19 +499,9 @@
               <FilePath>..\FWLIB\src\misc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_fsmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\src\stm32f4xx_fsmc.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\FWLIB\src\stm32f4xx_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\src\stm32f4xx_rcc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_syscfg.c</FileName>
@@ -554,19 +514,14 @@
               <FilePath>..\FWLIB\src\stm32f4xx_usart.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_tim.c</FileName>
+              <FileName>stm32f4xx_fsmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\FWLIB\src\stm32f4xx_tim.c</FilePath>
+              <FilePath>..\FWLIB\src\stm32f4xx_fsmc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_adc.c</FileName>
+              <FileName>stm32f4xx_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\FWLIB\src\stm32f4xx_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\FWLIB\src\stm32f4xx_dac.c</FilePath>
+              <FilePath>..\FWLIB\src\stm32f4xx_rcc.c</FilePath>
             </File>
           </Files>
         </Group>
