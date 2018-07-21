@@ -25,10 +25,13 @@
 //
 
 #define TSAMPLETIMES 20//train sample times
-#define DSAMPLETIMES 10//detect sample times
-#define MAXTRAINTIMES 10
+#define DSAMPLETIMES 5//detect sample times
+#define MAXTRAINTIMES 5
 #define MAXRANGE 0.2 //当训练时样本点中最大最小之差大于0.2pf时，认为此次训练样本不好，需要重新训练
+//好的训练样本满足：均值大于0.8，且单次训练的不同数据点之间差异小于0.2。
+//因为均值小于0.8相当于是没有人手放在上面。差异大于0.2说明人手动了或者环境干扰此时非常大
 
+//存储顺序，电容从小到大！
 float mean_g[8]={-100,-100,-100,-100,-100,-100,-100,-100};
 float unst_g[8]={0,0,0,0,0,0,0,0};
 float measurebuffer[10];
@@ -76,16 +79,21 @@ int equal2(int row,int column,int expect_row,int expect_column){
 void gesture_train(int n,float fdc2214temp){
 	int i;
 	int t;
-	for(t=0;t<MAXTRAINTIMES;t++){
+	float trainmean;
+	float trianmaxrange;
+	for(t=0;t<MAXTRAINTIMES;t++){// 5 times max, for 10s
 		for(i=0;i<TSAMPLETIMES;i++){
 				measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 sample for 20 times.
 				delay_ms(100);
 		}
-		if(MaxRange(measurebuffer,TSAMPLETIMES)<MAXRANGE){
-			mean_g[n-1]=mean(measurebuffer,TSAMPLETIMES);
-			unst_g[n-1]=stdsd(measurebuffer,TSAMPLETIMES);
-			printf("Mean=%f, Uncertainty=%f\n",mean_g[n-1],unst_g[n-1]);
-			break;
+		trainmean=mean(measurebuffer,TSAMPLETIMES);
+		trianmaxrange=MaxRange(measurebuffer,TSAMPLETIMES);
+		if(trianmaxrange<MAXRANGE){
+			if(trainmean<0.8)continue;//无手情况
+			mean_g[n-1]=mean(measurebuffer,TSAMPLETIMES);//
+			unst_g[n-1]=stdsd(measurebuffer,TSAMPLETIMES);//
+			printf("Mean=%f, Uncertainty=%f \n",mean_g[n-1],unst_g[n-1]);
+			return;
 		}
 	}
 	printf("ManRange = %f, training failed，please have another try. \n",MaxRange(measurebuffer,TSAMPLETIMES));
@@ -117,29 +125,29 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		gesture_train(5,fdc2214temp);
 	}
 	else if(equal2(row,column,4,1)){//*
-		printf("for Traning of gesture JD.\n");
+		printf("for Traning of gesture ST.\n");//最小
 		gesture_train(6,fdc2214temp);
 	}
 	else if(equal2(row,column,4,3)){//#
-		printf("for Traning of gesture ST.\n");
+		printf("for Traning of gesture JD.\n");//中间
 		gesture_train(7,fdc2214temp);
 	}
 	else if(equal2(row,column,4,4)){//D
-		printf("for Traning of gesture B.\n");
+		printf("for Traning of gesture B.\n");//最大
 		gesture_train(8,fdc2214temp);
 	}
-	else if(equal2(row,column,1,4)){//A, For Detection of JD/ST/B.
-		printf("For Detection of JDSTB.\n");
+	else if(equal2(row,column,1,4)){//A, For Detection of ST/JD/B.
+		printf("For Detection of STJDB.\n");
 		for(i=0;i<DSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 10 times for mean.
 			delay_ms(100);
 		}
 		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
 		
-		if(fdc2214in <= (mean_g[7-1]+mean_g[8-1])/2 ){//ST，石头电容值最小
+		if(fdc2214in < (mean_g[6-1]+mean_g[7-1])/2 ){//ST，石头电容值最小
 			printf("recognized : gesture ST .\n");
 		}
-		else if(fdc2214in <= (mean_g[6-1]+mean_g[7-1])/2){
+		else if(fdc2214in < (mean_g[7-1]+mean_g[8-1])/2){
 			printf("recognized : gesture JD .\n");
 		}
 		else{										//B，布电容值最大
@@ -156,7 +164,6 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		else if(fabs(fdc2214in-mean_g[8-1])<=unst_g[8-1]){
 			printf("recognized : gesture B .\n");
 		}*/
-		delay_ms(1000);
 	}
 	else if(equal2(row,column,2,4)){//B, For Detection of 12345.
 		printf("For Detection of 12345.\n");
@@ -168,19 +175,18 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		for(i=1;i<6;i++){
 			if(i<5 && (fdc2214in <= (mean_g[i-1]+mean_g[i])/2) ){//fabs(fdc2214in-mean_g[i-1])<=unst_g[i-1]
 				printf("recognized : gesture %d.\n",i);
-				delay_ms(1000);
 				break;
 			}
 			if(i==5){
 				if(fdc2214in > (mean_g[i-2]+mean_g[i-1])/2){
 					printf("recognized : gesture %d.\n",i);
-					delay_ms(1000);
 				}
 			}
 		}
 		
 	}
-	else if(equal2(row,column,4,2)){//0,无训练检测模式,JD/SD/B
+	///////////////
+	else if(equal2(row,column,4,2)){//0,无训练检测模式,JD/ST/B
 		mean_g[6-1]=2.5; unst_g[6-1]=0.5;//JD: 2-3
 		mean_g[7-1]=1.4; unst_g[7-1]=0.6;//ST: 0.8-2
 		mean_g[8-1]=3.5;  unst_g[8-1]=0.5;// B: 3-4
@@ -233,11 +239,11 @@ int Parse_Key(int row,int column,float fdc2214temp){
 	else if(equal2(row,column,3,3)){//9,printf existed data.
 		int i=0;
 		for(i=0;i<5;i++){
-			printf("Mean of gesture %d = %f, Uncertainty = %f \n",i+1,mean_g[i],unst_g[i]);
+			printf("Mean of gesture %d = %f, Uncertainty = %f\r\n",i+1,mean_g[i],unst_g[i]);
 		}
-		printf("Mean of gesture JD = %f, Uncertainty = %f \n",mean_g[5],unst_g[5]);
-		printf("Mean of gesture ST = %f, Uncertainty = %f \n",mean_g[6],unst_g[6]);
-		printf("Mean of gesture  B = %f, Uncertainty = %f \n",mean_g[7],unst_g[7]);
+		printf("Mean of gesture JD = %f, Uncertainty = %f\r\n",mean_g[5],unst_g[5]);
+		printf("Mean of gesture ST = %f, Uncertainty = %f\r\n",mean_g[6],unst_g[6]);
+		printf("Mean of gesture  B = %f, Uncertainty = %f\r\n",mean_g[7],unst_g[7]);
 	}
 	return 0;
 }
