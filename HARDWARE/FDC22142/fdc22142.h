@@ -1,25 +1,16 @@
-#ifndef __FDC2214_H
-#define __FDC2214_H
+#ifndef __FDC22142_H
+#define __FDC22142_H
 #include "sys.h"
 
 
 //IO方向设置
-#define FDC_SDA_IN()  {GPIOC->MODER&=~(3<<(5*2));GPIOC->MODER|=0<<5*2;}	//PC5输入模式 //{GPIOC->CRL&=0XFF0FFFFF;GPIOC->CRL|=8<<4*5;}
-#define FDC_SDA_OUT() {GPIOC->MODER&=~(3<<(5*2));GPIOC->MODER|=1<<5*2;}	//PC5输出模式 //{GPIOC->CRL&=0XFF0FFFFF;GPIOC->CRL|=3<<4*5;}
-
-#define ZFDC_SDA_IN()  {GPIOC->MODER&=~(3<<(7*2));GPIOC->MODER|=0<<7*2;}	//PC7输入模式 //{GPIOC->CRL&=0XFF0FFFFF;GPIOC->CRL|=8<<4*5;}
-#define ZFDC_SDA_OUT() {GPIOC->MODER&=~(3<<(7*2));GPIOC->MODER|=1<<7*2;}	//PC7输出模式 //{GPIOC->CRL&=0XFF0FFFFF;GPIOC->CRL|=3<<4*5;}
-
+#define FDC2_SDA_IN()  {GPIOC->MODER&=~(3<<(5*2));GPIOC->MODER|=0<<5*2;}	//PC5输入模式 //{GPIOC->CRL&=0XFF0FFFFF;GPIOC->CRL|=8<<4*5;}
+#define FDC2_SDA_OUT() {GPIOC->MODER&=~(3<<(5*2));GPIOC->MODER|=1<<5*2;}	//PC5输出模式 //{GPIOC->CRL&=0XFF0FFFFF;GPIOC->CRL|=3<<4*5;}
 
 //IO操作函数	 
-#define FDC_IIC_SCL    PCout(4) 	//SCL
-#define FDC_IIC_SDA    PCout(5)   //输出SDA	 
-#define FDC_READ_SDA   PCin(5) 		//输入SDA 
-
-//IO操作函数	 
-#define ZFDC_IIC_SCL    PCout(6) 	//SCL
-#define ZFDC_IIC_SDA    PCout(7)   //输出SDA	 
-#define ZFDC_READ_SDA   PCin(7) 		//输入SDA 
+#define FDC2_IIC_SCL    PCout(4) 	//SCL
+#define FDC2_IIC_SDA    PCout(5)   //输出SDA	 
+#define FDC2_READ_SDA   PCin(5) 		//输入SDA 
 
 /*FDC2214    iic从地址
  *ADDR = L , I2C Address = 0x2A
@@ -76,23 +67,16 @@
 
 //extern u16 Data_FDC;
 
-//相关函数声明
+//相关函数申明
 u8 Set_FDC2214(u8 reg,u8 MSB,u8 LSB);
+
 u16 FDC_Read(u8 reg);
 
 //u16 FCD2214_ReadCH(u8 index);
 u32 FCD2214_ReadCH(u8 index);
 u16 another_FCD2214_ReadCH(u8 index);
 u8 FDC2214_Init(void);
+
 float Cap_Calculate(u8 index);
-
-//相关函数声明2
-u8 ZSet_FDC2214(u8 reg,u8 MSB,u8 LSB);
-u16 ZFDC_Read(u8 reg);
-
-u32 ZFCD2214_ReadCH(u8 index);
-u8 ZFDC2214_Init(void);
-float ZCap_Calculate(u8 index);
-
 
 #endif

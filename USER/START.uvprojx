@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\TIMER;..\HARDWARE\MYPID;..\HARDWARE\MATRIXKEY;..\HARDWARE\STEPMOTOR;..\HARDWARE\FDC2214;..\HARDWARE\NIXIETUBE;..\HARDWARE\LCD</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\TIMER;..\HARDWARE\MYPID;..\HARDWARE\MATRIXKEY;..\HARDWARE\STEPMOTOR;..\HARDWARE\FDC2214;..\HARDWARE\NIXIETUBE;..\HARDWARE\LCD;..\HARDWARE\FDC22142</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -429,11 +429,6 @@
           <GroupName>HARDWARE</GroupName>
           <Files>
             <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\LED\led.c</FilePath>
-            </File>
-            <File>
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\KEY\key.c</FilePath>
@@ -442,6 +437,11 @@
               <FileName>lcd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\LCD\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\LED\led.c</FilePath>
             </File>
             <File>
               <FileName>myiic.c</FileName>
