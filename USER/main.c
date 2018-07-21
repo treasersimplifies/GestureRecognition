@@ -24,14 +24,31 @@
 //1.PID 采样频率由TIM3定时器决定
 //
 
-#define TRAININGTIMES 20
-#define DETEFECTTIMES 10
+#define TSAMPLETIMES 20//train sample times
+#define DSAMPLETIMES 10//detect sample times
+#define MAXTRAINTIMES 10
+#define MAXRANGE 0.2 //当训练时样本点中最大最小之差大于0.2pf时，认为此次训练样本不好，需要重新训练
 
 float mean_g[8]={-100,-100,-100,-100,-100,-100,-100,-100};
 float unst_g[8]={0,0,0,0,0,0,0,0};
 float measurebuffer[10];
 
-float mean(float measurebuffer[],int len){
+float MaxRange(float measurebuffer[],int len){//返回数组最大最小的差值
+	int i=0;
+	float max=measurebuffer[0];
+	float min=measurebuffer[0];
+	for(i=0;i<len;i++){
+		if(measurebuffer[i]>max){
+			max = measurebuffer[i];
+		}
+		if(measurebuffer[i]<min){
+			min = measurebuffer[i];
+		}
+	}
+	return max-min;
+}
+
+float mean(float measurebuffer[],int len){//calcul mean of an array
 	int i=0;
 	float meansum=0;
 	for(i=0;i<len;i++){
@@ -41,7 +58,7 @@ float mean(float measurebuffer[],int len){
 	return meansum;
 }
 
-float stdsd(float measurebuffer[],int len){
+float stdsd(float measurebuffer[],int len){//calculate the std err of an array 
 	int i=0;
 	float errsum=0;
 	float mean_g = mean(measurebuffer,len);
@@ -58,20 +75,27 @@ int equal2(int row,int column,int expect_row,int expect_column){
 
 void gesture_train(int n,float fdc2214temp){
 	int i;
-	for(i=0;i<TRAININGTIMES;i++){
-			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 sample for 20 times.
-			delay_ms(100);
+	int t;
+	for(t=0;t<MAXTRAINTIMES;t++){
+		for(i=0;i<TSAMPLETIMES;i++){
+				measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 sample for 20 times.
+				delay_ms(100);
 		}
-		mean_g[n-1]=mean(measurebuffer,TRAININGTIMES);
-		unst_g[n-1]=stdsd(measurebuffer,TRAININGTIMES);
-		printf("mean=%f, uncertainty=%f\n",mean_g[n-1],unst_g[n-1]);
+		if(MaxRange(measurebuffer,TSAMPLETIMES)<MAXRANGE){
+			mean_g[n-1]=mean(measurebuffer,TSAMPLETIMES);
+			unst_g[n-1]=stdsd(measurebuffer,TSAMPLETIMES);
+			printf("Mean=%f, Uncertainty=%f\n",mean_g[n-1],unst_g[n-1]);
+			break;
+		}
+	}
+	printf("ManRange = %f, training failed，please have another try. \n",MaxRange(measurebuffer,TSAMPLETIMES));
 }
-
 
 
 int Parse_Key(int row,int column,float fdc2214temp){
 	int i;
-	float fdc2214in;
+	float fdc2214in=Cap_Calculate(0)-fdc2214temp;
+	
 	if(equal2(row,column,1,1)){//1
 		printf("for Traning of gesture 1.\n");
 		gesture_train(1,fdc2214temp);
@@ -104,14 +128,25 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		printf("for Traning of gesture B.\n");
 		gesture_train(8,fdc2214temp);
 	}
-	else if(equal2(row,column,1,4)){//A
+	else if(equal2(row,column,1,4)){//A, For Detection of JD/ST/B.
 		printf("For Detection of JDSTB.\n");
-		for(i=0;i<DETEFECTTIMES;i++){
+		for(i=0;i<DSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 10 times for mean.
 			delay_ms(100);
 		}
-		fdc2214in=mean(measurebuffer,DETEFECTTIMES);
+		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
 		
+		if(fdc2214in <= (mean_g[7-1]+mean_g[8-1])/2 ){//ST，石头电容值最小
+			printf("recognized : gesture ST .\n");
+		}
+		else if(fdc2214in <= (mean_g[6-1]+mean_g[7-1])/2){
+			printf("recognized : gesture JD .\n");
+		}
+		else{										//B，布电容值最大
+			printf("recognized : gesture B .\n");
+		}
+		
+		/*
 		if(fabs(fdc2214in-mean_g[6-1])<=unst_g[6-1]){
 			printf("recognized : gesture JD .\n");
 		}
@@ -120,21 +155,27 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		}
 		else if(fabs(fdc2214in-mean_g[8-1])<=unst_g[8-1]){
 			printf("recognized : gesture B .\n");
-		}
+		}*/
 		delay_ms(1000);
 	}
-	else if(equal2(row,column,2,4)){//B
+	else if(equal2(row,column,2,4)){//B, For Detection of 12345.
 		printf("For Detection of 12345.\n");
-		for(i=0;i<DETEFECTTIMES;i++){
+		for(i=0;i<DSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 10 times for mean.
 			delay_ms(100);
 		}
-		fdc2214in=mean(measurebuffer,DETEFECTTIMES);
+		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
 		for(i=1;i<6;i++){
-			if(fabs(fdc2214in-mean_g[i-1])<=unst_g[i-1]){
+			if(i<5 && (fdc2214in <= (mean_g[i-1]+mean_g[i])/2) ){//fabs(fdc2214in-mean_g[i-1])<=unst_g[i-1]
 				printf("recognized : gesture %d.\n",i);
 				delay_ms(1000);
 				break;
+			}
+			if(i==5){
+				if(fdc2214in > (mean_g[i-2]+mean_g[i-1])/2){
+					printf("recognized : gesture %d.\n",i);
+					delay_ms(1000);
+				}
 			}
 		}
 		
@@ -145,11 +186,11 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		mean_g[8-1]=3.5;  unst_g[8-1]=0.5;// B: 3-4
 		
 		printf("For Untrained Detection of JDSTB.\n");
-		for(i=0;i<DETEFECTTIMES;i++){
+		for(i=0;i<DSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 10 times for mean.
 			delay_ms(100);
 		}
-		fdc2214in=mean(measurebuffer,DETEFECTTIMES);
+		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
 		printf("detect value: %f \n",fdc2214in);
 		
 		if(fabs(fdc2214in-mean_g[6-1])<=unst_g[6-1]){
@@ -174,11 +215,11 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		mean_g[5-1]=3.5; unst_g[5-1]=0.5;
 		
 		printf("For Untrained Detection of 12345.\n");
-		for(i=0;i<DETEFECTTIMES;i++){
+		for(i=0;i<DSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 10 times for mean.
 			delay_ms(100);
 		}
-		fdc2214in=mean(measurebuffer,DETEFECTTIMES);
+		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
 		printf("detect value: %f \n",fdc2214in);
 		
 		for(i=1;i<6;i++){
@@ -189,7 +230,15 @@ int Parse_Key(int row,int column,float fdc2214temp){
 			}
 		}
 	}
-	
+	else if(equal2(row,column,3,3)){//9,printf existed data.
+		int i=0;
+		for(i=0;i<5;i++){
+			printf("Mean of gesture %d = %f, Uncertainty = %f \n",i+1,mean_g[i],unst_g[i]);
+		}
+		printf("Mean of gesture JD = %f, Uncertainty = %f \n",mean_g[5],unst_g[5]);
+		printf("Mean of gesture ST = %f, Uncertainty = %f \n",mean_g[6],unst_g[6]);
+		printf("Mean of gesture  B = %f, Uncertainty = %f \n",mean_g[7],unst_g[7]);
+	}
 	return 0;
 }
 
@@ -213,8 +262,7 @@ int main(void)
 	MATRI4X4KEY_Init();
 	while(FDC2214_Init());
 	
-	printf("Init OK\n.");
-	delay_ms(10);
+	printf("Init OK \n.");
 	delay_ms(1000);//延时1s使得这是手可以缩回防止手放在复位按钮时影响电容。
 	
 	temp0 = Cap_Calculate(0);//读取初始值******
@@ -231,9 +279,9 @@ int main(void)
 		res1 = Cap_Calculate(1);
 		res2 = Cap_Calculate(2);
 		res3 = Cap_Calculate(3);
-		printf("CH0;%3.3f CH1;%3.3f CH2;%3.3f CH3;%3.3f\r\n",res0-temp0,res1-temp1,res2-temp2,res3-temp3);
+		printf("CH0;%3.3f CH1;%3.3f CH2;%3.3f CH3;%3.3f. \n",res0-temp0,res1-temp1,res2-temp2,res3-temp3);
 		if(MATRI4_4KEY_Scan(&row, &column)==0)
-			printf("key pressed row=%d, column=%d\n",row,column);
+			printf("key pressed row=%d, column=%d \n",row,column);
 		if(mine_or_others==1){
 			Parse_Key(row,column,temp0);
 		}
