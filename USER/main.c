@@ -6,36 +6,33 @@
 #include "led.h"
 #include "key.h"
 #include "lcd.h"
-//#include "timer.h"
-//#include "adc.h"
-//#include "dac.h"
+
 #include "matrixkey.h"
 #include "fdc2214.h"
-//#include "nixietube.h"
+
 
 //Pins used：  
 
 //1.PB0-PB3/PA0-PA3 : 4X4 matrix keys
 //2.PC4(SCL) PC5(SDA) ： I2C for fdc2214 PC
 //3.PC6(SCL) PC7(SDA)
-//4:PB15,PD0,PD1,PD4,PD5,PD8,PD9,PD10,PD14,PD15,PE7~15,PF12,PG12: LCD;
-//5.PF1 3 5:波妞开关
-//6.PA11 12 13 14 15
-
-//Abilities:
-//1.PID 采样频率由TIM3定时器决定
-//
+//4.PB15,PD0,PD1,PD4,PD5,PD8,PD9,PD10,PD14,PD15,PE7~15,PF12,PG12: LCD;
+//5.PF1 3 5:波妞开关,决定一些内部状态
+//6.PA11 12 13 14 15 为状态指示LED
+//7.PG2 3 4 5 6为辅助识别指示灯
+ 
 
 #define TSAMPLETIMES 10//train sample times
 #define DSAMPLETIMES 5//detect sample times
 #define MAXTRAINTIMES 3
-#define MAXRANGE 0.2 //当训练时样本点中最大最小之差大于0.2pf时，认为此次训练样本不好，需要重新训练
-#define NOHANDSTATUS 0.4
-//好的训练样本满足：均值大于0.8，且单次训练的不同数据点之间差异小于0.2。
-//因为均值小于0.8相当于是没有人手放在上面。差异大于0.2说明人手动了或者环境干扰此时非常大
+#define MAXRANGE 0.2 //当训练时样本点中最大最小之差大于0.2 pf时，认为此次训练样本不好，需要重新训练
+#define NOHANDSTATUS 0.4  //如果电容值小与0.4，认为此时无手放在板上
+//好的训练样本满足：均值大于0.4，且单次训练的不同数据点之间差异小于0.2。
+//因为均值小于0.4相当于是没有人手放在上面。差异大于0.2说明人手动了或者环境干扰此时非常大
 
-//存储顺序，电容从小到大！
-float mean_g[8]={-1,-1,-1,-1,-1,-1,-1,-1};
+//存储顺序，电容从小到大: 1 2 3 4 5 ST JD B,复位时，人须离传感器很远。
+float mean_g[8]={2.25,3.30,3.80,4.25,5.25,1.10,3.30,5.25};
+//
 float unst_g[8]={0,0,0,0,0,0,0,0};
 float measurebuffer[10];
 //使用波妞开关改变：
@@ -48,6 +45,7 @@ int train_status=2;//=1:train finished, =-1:failed =0:training
 int current_key=0;//1:1,16:D
 float C0,C1,C2,C3,C4=0;
 float ZC0,ZC1,ZC2,ZC3,ZC4=0;
+
 
 float MaxRange(float measurebuffer[],int len){//返回数组最大最小的差值
 	int i=0;
@@ -92,47 +90,6 @@ int equal2(int row,int column,int expect_row,int expect_column){
 
 /*********************MAIN FUNCTIONS*********************/
 
-void falsegesture_train(int n,float fdc2214temp){
-	int i;
-	int t;
-	float trainmean;
-	float trianmaxrange;
-	
-	LED_Training();
-	
-	for(t=0;t<MAXTRAINTIMES;t++){// 3 times max, for 10s
-		
-		for(i=0;i<TSAMPLETIMES;i++){
-			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 sample for 10 times.
-			if(compensation==1)
-				measurebuffer[i]-=ZCap_Calculate(0);
-			delay_ms(50);
-		}
-		trainmean=mean(measurebuffer,TSAMPLETIMES);
-		
-		trianmaxrange=MaxRange(measurebuffer,TSAMPLETIMES);
-		if(trianmaxrange<MAXRANGE){//好训练集情况
-			if(trainmean<NOHANDSTATUS)continue;//无手情况
-			mean_g[n-1]=mean(measurebuffer,TSAMPLETIMES);//
-			unst_g[n-1]=stdsd(measurebuffer,TSAMPLETIMES);//
-			printf("Mean=%f, Uncertainty=%f \r\n",mean_g[n-1],unst_g[n-1]);
-			//LCD_ShowString(30,70,120,16,16,"Mean=: ");
-			//LCD_ShowNum(130,70,mean_g[n-1]*100,3,16);
-			//LCD_ShowString(180,70,100,16,16,"/100 pf");
-			
-			LED_Trainsuccess();
-			return;
-		}
-		//坏训练集情况则需要不断循环，如果循环次数大于10就返回训练是失败
-		
-		
-	}
-	
-	LED_Trainfail();
-	printf("***，ManRange = %f, training failed，please have another try. \r\n",MaxRange(measurebuffer,TSAMPLETIMES));
-	
-}
-
 int gesture_train(int n,float fdc2214temp){
 	int i;
 	int t;
@@ -141,7 +98,7 @@ int gesture_train(int n,float fdc2214temp){
 	
 	LED_Training();
 	
-	for(t=0;t<MAXTRAINTIMES;t++){// 3 times max, for 10s
+	for(t=0;t<MAXTRAINTIMES;t++){// 3 times max, for 1.5s
 		
 		for(i=0;i<TSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 sample for 10 times.
@@ -159,10 +116,6 @@ int gesture_train(int n,float fdc2214temp){
 			printf("Mean=%f, Uncertainty=%f \r\n",mean_g[n-1],unst_g[n-1]);
 			POINT_COLOR=GREEN;
 			LCD_ShowString(30,210,210,16,16,"Train Status: OK.");
-			//LCD_ShowString(30,70,120,16,16,"Mean=: ");
-			//LCD_ShowNum(130,70,mean_g[n-1]*100,3,16);
-			//LCD_ShowString(180,70,100,16,16,"/100 pf");
-			
 			LED_Trainsuccess();
 			return 0;
 		}
@@ -180,8 +133,7 @@ int gesture_train(int n,float fdc2214temp){
 int Parse_Key(int row,int column,float fdc2214temp){
 	int i;
 	float fdc2214in;
-	int trainflag;
-	
+	int trainflag;//单次训练是否成功的标志
 	
 	//训练按键：
 	if(equal2(row,column,1,1)){//1
@@ -191,7 +143,8 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		trainflag=gesture_train(1,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,345,200,12,12,"1:gesture 1 trained!!!");
+			LCD_ShowString(30,345,200,12,12,"1:gesture 1 Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(100,190,mean_g[0]*100,3,16);
 	}
 	else if(equal2(row,column,1,2)){//2
@@ -201,7 +154,8 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		trainflag=gesture_train(2,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,360,200,12,12,"2:gesture 2 trained!!!");
+			LCD_ShowString(30,360,200,12,12,"2:gesture 2 Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(140,190,mean_g[1]*100,3,16);
 	}
 	else if(equal2(row,column,1,3)){//3
@@ -211,7 +165,8 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		trainflag=gesture_train(3,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,375,200,12,12,"3:gesture 3 trained!!!");
+			LCD_ShowString(30,375,200,12,12,"3:gesture 3 Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(180,190,mean_g[2]*100,3,16);
 	}
 	else if(equal2(row,column,2,1)){//4
@@ -221,7 +176,8 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		trainflag=gesture_train(4,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,390,200,12,12,"4:gesture 4 trained!!!");
+			LCD_ShowString(30,390,200,12,12,"4:gesture 4 Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(220,190,mean_g[3]*100,3,16);
 	}
 	else if(equal2(row,column,2,2)){//5
@@ -231,7 +187,8 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		trainflag=gesture_train(5,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,405,200,12,12,"5:gesture 5 trained!!!");
+			LCD_ShowString(30,405,200,12,12,"5:gesture 5 Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(260,190,mean_g[4]*100,3,16);
 	}
 	else if(equal2(row,column,4,1)){//*
@@ -241,32 +198,39 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		trainflag=gesture_train(6,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,285,200,12,12,"*:gesture ST trained!!!");
+			LCD_ShowString(30,285,200,12,12,"*:gesture ST Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(100,170,mean_g[5]*100,3,16);
 	}
 	else if(equal2(row,column,4,3)){//#
 		printf("for Traning of gesture JD.\r\n");//中间
 		POINT_COLOR=YELLOW;
-		LCD_ShowString(30,300,200,12,12,"*:gesture JD training.");
+		LCD_ShowString(30,300,200,12,12,"#:gesture JD training.");
 		trainflag=gesture_train(7,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,300,200,12,12,"*:gesture JD trained!!!");
+			LCD_ShowString(30,300,200,12,12,"#:gesture JD Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(160,170,mean_g[6]*100,3,16);
 	}
 	else if(equal2(row,column,4,4)){//D
 		printf("for Traning of gesture B.\r\n");//最大
 		POINT_COLOR=YELLOW;
-		LCD_ShowString(30,315,200,12,12,"*:gesture B training.");
+		LCD_ShowString(30,315,200,12,12,"D:gesture B training.");
 		trainflag=gesture_train(8,fdc2214temp);
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
-			LCD_ShowString(30,315,200,12,12,"*:gesture B trained!!!");
+			LCD_ShowString(30,315,200,12,12,"D:gesture B Trained!!!");
+		POINT_COLOR=BLACK;
 		LCD_ShowNum(220,170,mean_g[7]*100,3,16);
 	}
+	
 	//判定按键：
-	else if(equal2(row,column,1,4)){//A, For Detection of ST/JD/B.
+	
+	else if(equal2(row,column,1,4)){//key A, For Detection of ST/JD/B.
 		printf("For Detection of STJDB.\r\n");
+		POINT_COLOR=BLACK;
+		LCD_ShowString(30,270,180,12,12,"A:Detection of STJDB");
 		for(i=0;i<DSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 5 times for mean.
 			if(compensation==1)
@@ -279,25 +243,31 @@ int Parse_Key(int row,int column,float fdc2214temp){
 			POINT_COLOR=BLUE;
 			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
 			LCD_ShowString(260,30,100,16,16,"ST ");
+			LED_gestureST_on();
 			printf("recognized : gesture ST .\r\n");
 		}
 		else if(fdc2214in < (mean_g[7-1]+mean_g[8-1])/2){
 			POINT_COLOR=BLUE;
 			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
 			LCD_ShowString(260,30,100,16,16,"JD ");
+			LED_gestureJD_on();
 			printf("recognized : gesture JD .\r\n");
 		}
 		else{										//B，布电容值最大
 			POINT_COLOR=BLUE;
 			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
 			LCD_ShowString(260,30,100,16,16,"B  ");
+			LED_gestureB_on();
 			printf("recognized : gesture B .\r\n");
 			//LCD_ShowNum(220,170,mean_g[7]*100,3,16);
 		}
 
 	}
-	else if(equal2(row,column,2,4)){//B, For Detection of 12345.
+	else if(equal2(row,column,2,4)){	//key B, For Detection of 12345.
 		printf("For Detection of 12345.\r\n");
+		POINT_COLOR=BLACK;
+		LCD_ShowString(30,330,180,12,12,"B:Detection of 12345");
+		//detect sample:
 		for(i=0;i<DSAMPLETIMES;i++){
 			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 5 times for mean.
 			if(compensation==1)
@@ -305,33 +275,39 @@ int Parse_Key(int row,int column,float fdc2214temp){
 			delay_ms(50);
 		}
 		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
+		//recognize:
 		for(i=1;i<6;i++){
 			if(i<5 && (fdc2214in <= (mean_g[i-1]+mean_g[i])/2) ){//fabs(fdc2214in-mean_g[i-1])<=unst_g[i-1]
 				POINT_COLOR=BLUE;
 				LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
-				LCD_ShowNum(260,30,i,1,16);
+				LCD_ShowNum(260,30,i,2,16);
+				LED_gesture_on(i);
 				printf("recognized : gesture %d.\r\n",i);
 				break;
 			}
 			if(i==5){
 				if(fdc2214in > (mean_g[i-2]+mean_g[i-1])/2){
-					printf("recognized : gesture %d.\r\n",i);
 					POINT_COLOR=BLUE;
 					LCD_ShowString(30,30,180,16,16,"Gesture Recognized:  ");
-					LCD_ShowNum(260,30,i,1,16);
+					LCD_ShowNum(260,30,i,2,16);
+					LED_gesture_on(i);
+					printf("recognized : gesture %d.\r\n",i);
 				}
 			}
 		}
+		delay_ms(200);//
 		
 	}
+	
 	//其他功能性按键：//9,0,C,7,8
+	
 	else if(equal2(row,column,3,3)){//9,printf existed data.
 		int i=0;
 		for(i=0;i<5;i++){
 			printf("Mean of gesture %d = %f, Uncertainty = %f\r\n",i+1,mean_g[i],unst_g[i]);
 		}
-		printf("Mean of gesture JD = %f, Uncertainty = %f\r\n",mean_g[5],unst_g[5]);
-		printf("Mean of gesture ST = %f, Uncertainty = %f\r\n",mean_g[6],unst_g[6]);
+		printf("Mean of gesture ST = %f, Uncertainty = %f\r\n",mean_g[5],unst_g[5]);
+		printf("Mean of gesture JD = %f, Uncertainty = %f\r\n",mean_g[6],unst_g[6]);
 		printf("Mean of gesture  B = %f, Uncertainty = %f\r\n",mean_g[7],unst_g[7]);
 		POINT_COLOR=BLACK;
 		LCD_ShowString(30,170,140,16,16,"STJDB C: ");
@@ -345,61 +321,6 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		LCD_ShowNum(220,190,mean_g[3]*100,3,16);
 		LCD_ShowNum(260,190,mean_g[4]*100,3,16);
 	}
-	/*
-	else if(equal2(row,column,4,2)){//0,无训练检测模式,JD/ST/B
-		mean_g[6-1]=2.5; unst_g[6-1]=0.5;//JD: 2-3
-		mean_g[7-1]=1.4; unst_g[7-1]=0.6;//ST: 0.8-2
-		mean_g[8-1]=3.5;  unst_g[8-1]=0.5;// B: 3-4
-		
-		printf("For Untrained Detection of JDSTB.\r\n");
-		for(i=0;i<DSAMPLETIMES;i++){
-			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 10 times for mean.、
-			if(compensation==1)
-				measurebuffer[i]-=ZCap_Calculate(0);
-			delay_ms(100);
-		}
-		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
-		printf("detect value: %f \r\n",fdc2214in);
-		
-		if(fabs(fdc2214in-mean_g[6-1])<=unst_g[6-1]){
-			printf("recognized : gesture JD .\n");
-		}
-		else if(fabs(fdc2214in-mean_g[7-1])<=unst_g[7-1]){
-			printf("recognized : gesture ST .\r\n");
-		}
-		else if(fabs(fdc2214in-mean_g[8-1])<=unst_g[8-1]){
-			printf("recognized : gesture B .\r\n");
-		}
-		else{
-			printf("Confused with gesture recognition......\r\n");
-		}
-		delay_ms(1000);
-	}
-	else if(equal2(row,column,3,4)){//C,无训练检测模式,1/2/3/4/5
-		mean_g[1-1]=1.70; unst_g[1-1]=0.15;
-		mean_g[2-1]=2.05; unst_g[2-1]=0.2;
-		mean_g[3-1]=2.4;  unst_g[3-1]=0.15;
-		mean_g[4-1]=2.7; unst_g[4-1]=0.15;
-		mean_g[5-1]=3.5; unst_g[5-1]=0.5;
-		
-		printf("For Untrained Detection of 12345.\r\n");
-		for(i=0;i<DSAMPLETIMES;i++){
-			measurebuffer[i]=Cap_Calculate(0)-fdc2214temp; // CH0 detect for 10 times for mean.
-			if(compensation==1)
-				measurebuffer[i]-=ZCap_Calculate(0);
-			delay_ms(100);
-		}
-		fdc2214in=mean(measurebuffer,DSAMPLETIMES);
-		printf("detect value: %f \r\n",fdc2214in);
-		
-		for(i=1;i<6;i++){
-			if(fabs(fdc2214in-mean_g[i-1])<=unst_g[i-1]){
-				printf("recognized : gesture %d.\r\n",i);
-				delay_ms(1000);
-				break;
-			}
-		}
-	}*/
 	
 	/*
 	else if(equal2(row,column,3,1)){//7
@@ -473,33 +394,33 @@ void LCD_ShowNormalC(){
 	
 	POINT_COLOR=BLACK;
 	LCD_ShowString(30,70,210,16,16,"Current C0: ");
-	LCD_ShowNum(120,70,C0*100,3,16);
+	LCD_ShowNum(120,70,fabs(C0)*100,3,16);
 	LCD_ShowString(170,70,100,16,16," Z=");
-	LCD_ShowNum(210,70,ZC0*100,3,16);
+	LCD_ShowNum(210,70,fabs(ZC0)*100,3,16);
 	LCD_ShowString(250,70,100,16,16,"/100 pf");
 	
 	LCD_ShowString(30,90,210,16,16,"Current C1: ");
-	LCD_ShowNum(120,90,C1*100,3,16);
+	LCD_ShowNum(120,90,fabs(C1)*100,3,16);
 	LCD_ShowString(170,90,100,16,16," Z=");
-	LCD_ShowNum(210,90,ZC1*100,3,16);
+	LCD_ShowNum(210,90,fabs(ZC1)*100,3,16);
 	LCD_ShowString(250,90,100,16,16,"/100 pf");
 	
 	LCD_ShowString(30,110,210,16,16,"Current C2: ");
-	LCD_ShowNum(120,110,C2*100,3,16);
+	LCD_ShowNum(120,110,fabs(C2)*100,3,16);
 	LCD_ShowString(170,110,100,16,16," Z=");
-	LCD_ShowNum(210,110,ZC2*100,3,16);
+	LCD_ShowNum(210,110,fabs(ZC2)*100,3,16);
 	LCD_ShowString(250,110,100,16,16,"/100 pf");
 	
 	LCD_ShowString(30,130,210,16,16,"Current C3: ");
-	LCD_ShowNum(120,130,C3*100,3,16);
+	LCD_ShowNum(120,130,fabs(C3)*100,3,16);
 	LCD_ShowString(170,130,100,16,16," Z=");
-	LCD_ShowNum(210,130,ZC3*100,3,16);
+	LCD_ShowNum(210,130,fabs(ZC3)*100,3,16);
 	LCD_ShowString(250,130,100,16,16,"/100 pf");
 	
 	LCD_ShowString(30,150,210,16,16,"Current C4: ");
-	LCD_ShowNum(120,150,C4*100,3,16);
+	LCD_ShowNum(120,150,fabs(C4)*100,3,16);
 	LCD_ShowString(170,150,100,16,16," Z=");
-	LCD_ShowNum(210,150,ZC4*100,3,16);
+	LCD_ShowNum(210,150,fabs(ZC4)*100,3,16);
 	LCD_ShowString(250,150,100,16,16,"/100 pf");
 }
 
@@ -562,8 +483,14 @@ int main(void)
 	
  	while(1)
 	{
-		//LED_Off();
+		LED_Off();
 		LCD_ShowString(30,210,210,16,16,"Train Status:         ");
+		LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
+		LCD_ShowString(260,30,100,16,16,"   ");
+		
+		POINT_COLOR=BROWN;
+		LCD_ShowString(30,330,180,12,12,"B:Detection of 12345");
+		LCD_ShowString(30,270,180,12,12,"A:Detection of STJDB");
 		
 		row= -1;
 		column= -1;
@@ -580,7 +507,7 @@ int main(void)
 		C3=C2;
 		C2=C1;
 		C1=C0;
-		C0=Cap_Calculate(0)-temp0;
+		C0=res0-temp0;
 		ZC4=ZC3;
 		ZC3=ZC2;
 		ZC2=ZC1;
@@ -606,7 +533,6 @@ int main(void)
 			else
 				Parse_Key(row,column,temp0);
 		}
-		
-		delay_ms(800);
+		delay_ms(400);
 	} 	
 }
