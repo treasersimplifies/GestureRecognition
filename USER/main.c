@@ -252,7 +252,7 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		POINT_COLOR=GREEN;
 		if(trainflag==0)
 			LCD_ShowString(30,300,200,12,12,"*:gesture JD trained!!!");
-		LCD_ShowNum(130,170,mean_g[6]*100,3,16);
+		LCD_ShowNum(160,170,mean_g[6]*100,3,16);
 	}
 	else if(equal2(row,column,4,4)){//D
 		printf("for Traning of gesture B.\r\n");//最大
@@ -277,19 +277,22 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		
 		if(fdc2214in < (mean_g[6-1]+mean_g[7-1])/2 ){//ST，石头电容值最小
 			POINT_COLOR=BLUE;
-			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:        ST           ");
+			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
+			LCD_ShowString(260,30,100,16,16,"ST ");
 			printf("recognized : gesture ST .\r\n");
 		}
 		else if(fdc2214in < (mean_g[7-1]+mean_g[8-1])/2){
 			POINT_COLOR=BLUE;
-			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:        JD           ");
+			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
+			LCD_ShowString(260,30,100,16,16,"JD ");
 			printf("recognized : gesture JD .\r\n");
 		}
 		else{										//B，布电容值最大
 			POINT_COLOR=BLUE;
-			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:         B           ");
+			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
+			LCD_ShowString(260,30,100,16,16,"B  ");
 			printf("recognized : gesture B .\r\n");
-			LCD_ShowNum(220,170,mean_g[7]*100,3,16);
+			//LCD_ShowNum(220,170,mean_g[7]*100,3,16);
 		}
 
 	}
@@ -414,10 +417,10 @@ void LCD_Shining(){
 	
 	LCD_Clear(WHITE);
 	POINT_COLOR=BLACK;	  
-	if(mode ==0)
-		LCD_ShowString(30,10,210,16,16,"Current Mode: Detect");
+	if(compensation ==0)
+		LCD_ShowString(30,10,210,16,16,"Current Mode: Normal");
 	else
-		LCD_ShowString(30,10,210,16,16,"Current Mode: Train");
+		LCD_ShowString(30,10,210,16,16,"Current Mode: Compensation");
 	LCD_ShowString(30,30,210,16,16,"Gssture Recognized:  ");
 		//LCD_ShowString(30,40,210,24,24,"Mode:Judging");
 		//LCD_ShowString(30,70,200,16,16,"posture:paper");
@@ -444,7 +447,7 @@ void LCD_Shining(){
  	//LCD_ShowString(30,130,210,24,24,lcd_id);		//显示LCD ID
 	
 	POINT_COLOR=BROWN;
-	LCD_ShowString(30,250,180,16,16,"*****Key Functions******");
+	LCD_ShowString(30,250,180,16,16,"***** Function of Keys ******");
 	LCD_ShowString(30,270,180,12,12,"A:Detection of STJDB");
 	POINT_COLOR=RED;
 	LCD_ShowString(30,285,180,12,12,"*:gesture ST UNtrained");
@@ -505,7 +508,7 @@ int main(void)
 	int mine_or_others=1;
 	int row=0;
 	int column=0;
-	int i=0;
+	//int i=0;
 	
 	float res0;//float res1,res2,res3;
 	float Zres0;//float Zres1,Zres2,Zres3;
@@ -561,7 +564,7 @@ int main(void)
 	{
 		//LED_Off();
 		LCD_ShowString(30,210,210,16,16,"Train Status:         ");
-		i++;
+		
 		row= -1;
 		column= -1;
 		res0 = Cap_Calculate(0);//采集数据
@@ -572,17 +575,16 @@ int main(void)
 		//Zres1 = ZCap_Calculate(1);
 		//Zres2 = ZCap_Calculate(2);
 		//Zres3 = ZCap_Calculate(3);
-		
-		if(i==2)C1=C0;
-		else if(i==3)C2=C1;
-		else if(i==4)C3=C2;
-		else if(i==5)C4=C3;
+
+		C4=C3;
+		C3=C2;
+		C2=C1;
+		C1=C0;
 		C0=Cap_Calculate(0)-temp0;
-		
-		if(i==2)ZC1=ZC0;
-		else if(i==3)ZC2=ZC1;
-		else if(i==4)ZC3=ZC2;
-		else if(i==5)ZC4=ZC3;
+		ZC4=ZC3;
+		ZC3=ZC2;
+		ZC2=ZC1;
+		ZC1=ZC0;
 		ZC0=Zres0-Ztemp0;
 		
 		LCD_ShowNormalC();//类似于以下4个printf
@@ -595,7 +597,6 @@ int main(void)
 		if(printfmode ==3)printf("CH0 res=%f, ZCH0 res=%f \r\n",res0,Zres0);
 		if(printfmode ==4)printf("CH0 abs =%3.3f, ZCH0 abs =%3.3f \r\n",fabs(res0-temp0),fabs(Zres0-Ztemp0));
 		
-		
 		if(MATRI4_4KEY_Scan(&row, &column)==0)
 			printf("key pressed row=%d, column=%d \r\n",row,column);
 		
@@ -606,7 +607,6 @@ int main(void)
 				Parse_Key(row,column,temp0);
 		}
 		
-		if(i==5)i=0;
 		delay_ms(800);
 	} 	
 }
