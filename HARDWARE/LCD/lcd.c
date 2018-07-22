@@ -64,7 +64,8 @@
 //V3.0 20150423
 //修改SSD1963 LCD屏的驱动参数.
 //////////////////////////////////////////////////////////////////////////////////	 
-
+//pin used:
+//
 //LCD的画笔颜色和背景色	   
 u16 POINT_COLOR=0x0000;	//画笔颜色
 u16 BACK_COLOR=0xFFFF;  //背景色 
@@ -598,7 +599,7 @@ void LCD_Init(void)
   RCC_AHB3PeriphClockCmd(RCC_AHB3Periph_FSMC,ENABLE);//使能FSMC时钟  
 	
  
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;//PB15 推挽输出,控制背光
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;//PB15 推挽输出,控制背光
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//100MHz
@@ -619,14 +620,14 @@ void LCD_Init(void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIOE, &GPIO_InitStructure);//初始化  
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;//PF12,FSMC_A6
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;//PF12,FSMC_A6
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//复用输出
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIOF, &GPIO_InitStructure);//初始化  
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;//PF12,FSMC_A6
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;//PG12,FSMC_A6
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//复用输出
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz

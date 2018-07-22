@@ -6,10 +6,12 @@
 									  
 ////////////////////////////////////////////////////////////////////////////////// 	
 
+ 
 
-//LED端口定义
-#define LED0 PFout(9)	// DS0
-#define LED1 PFout(10)	// DS1	 
+void LED_Init(void);//初始化	
+void LED_Training(void);
+void LED_Trainsuccess(void);
+void LED_Trainfail(void);
+void LED_Off(void);
 
-void LED_Init(void);//初始化		 				    
 #endif
