@@ -4,7 +4,7 @@
 #include "usart.h"
 
 //矩阵键盘初始化函数
-
+//PA0-3 PB0-3
 void MATRI4X4KEY_Init(void){
 	int i;
 	RCC->AHB1ENR|=1<<1;//使能PORTB时钟 

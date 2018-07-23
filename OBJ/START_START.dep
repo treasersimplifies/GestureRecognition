@@ -1,5 +1,5 @@
 Dependencies for Project 'START', Target 'START': (DO NOT MODIFY !)
-F (.\main.c)(0x5B5493B2)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x5B558A7E)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -39,13 +39,14 @@ I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
 I (..\SYSTEM\usart\usart.h)(0x5B4E0CC3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x585D2641)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\HARDWARE\LED\led.h)(0x5B546EDD)
-I (..\HARDWARE\KEY\key.h)(0x5B4E0D4C)
+I (..\HARDWARE\BEEP\beep.h)(0x5B5586D0)
 I (..\HARDWARE\LCD\lcd.h)(0x5B4E0D47)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (..\HARDWARE\LED\led.h)(0x5B546EDD)
+I (..\HARDWARE\KEY\key.h)(0x5B553468)
 I (..\HARDWARE\MATRIXKEY\matrixkey.h)(0x5B51AD93)
 I (..\HARDWARE\FDC2214\fdc2214.h)(0x5B52EF63)
-F (.\stm32f4xx_it.c)(0x5426CDF4)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_it.o --omf_browse ..\obj\stm32f4xx_it.crf --depend ..\obj\stm32f4xx_it.d)
+F (.\stm32f4xx_it.c)(0x5426CDF4)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_it.o --omf_browse ..\obj\stm32f4xx_it.crf --depend ..\obj\stm32f4xx_it.d)
 I (stm32f4xx_it.h)(0x5426CDC1)
 I (stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -82,7 +83,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (.\system_stm32f4xx.c)(0x542B7880)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\system_stm32f4xx.o --omf_browse ..\obj\system_stm32f4xx.crf --depend ..\obj\system_stm32f4xx.d)
+F (.\system_stm32f4xx.c)(0x542B7880)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\system_stm32f4xx.o --omf_browse ..\obj\system_stm32f4xx.crf --depend ..\obj\system_stm32f4xx.d)
 I (stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -118,8 +119,8 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\HARDWARE\KEY\key.c)(0x5B53DC1E)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
-I (..\HARDWARE\KEY\key.h)(0x5B4E0D4C)
+F (..\HARDWARE\KEY\key.c)(0x5B55346F)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
+I (..\HARDWARE\KEY\key.h)(0x5B553468)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -156,7 +157,7 @@ I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
-F (..\HARDWARE\LCD\lcd.c)(0x5B53DE24)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\lcd.o --omf_browse ..\obj\lcd.crf --depend ..\obj\lcd.d)
+F (..\HARDWARE\LCD\lcd.c)(0x5B53DE24)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\lcd.o --omf_browse ..\obj\lcd.crf --depend ..\obj\lcd.d)
 I (..\HARDWARE\LCD\lcd.h)(0x5B4E0D47)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -198,7 +199,7 @@ I (..\HARDWARE\LCD\font.h)(0x52C52FE7)
 I (..\SYSTEM\usart\usart.h)(0x5B4E0CC3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x585D2641)
 I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
-F (..\HARDWARE\LED\led.c)(0x5B54740F)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
+F (..\HARDWARE\LED\led.c)(0x5B557EFD)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
 I (..\HARDWARE\LED\led.h)(0x5B546EDD)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -235,7 +236,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\HARDWARE\IIC\myiic.c)(0x5B4DB775)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\myiic.o --omf_browse ..\obj\myiic.crf --depend ..\obj\myiic.d)
+F (..\HARDWARE\IIC\myiic.c)(0x5B4DB775)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\myiic.o --omf_browse ..\obj\myiic.crf --depend ..\obj\myiic.d)
 I (..\HARDWARE\IIC\myiic.h)(0x5B4DB995)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -273,7 +274,7 @@ I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
-F (..\HARDWARE\MATRIXKEY\matrixkey.c)(0x5B53D9FC)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\matrixkey.o --omf_browse ..\obj\matrixkey.crf --depend ..\obj\matrixkey.d)
+F (..\HARDWARE\MATRIXKEY\matrixkey.c)(0x5B553592)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\matrixkey.o --omf_browse ..\obj\matrixkey.crf --depend ..\obj\matrixkey.d)
 I (..\HARDWARE\MATRIXKEY\matrixkey.h)(0x5B51AD93)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -313,7 +314,7 @@ I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
 I (..\SYSTEM\usart\usart.h)(0x5B4E0CC3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x585D2641)
-F (..\HARDWARE\FDC2214\fdc2214.c)(0x5B52F0F0)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\fdc2214.o --omf_browse ..\obj\fdc2214.crf --depend ..\obj\fdc2214.d)
+F (..\HARDWARE\FDC2214\fdc2214.c)(0x5B52F0F0)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\fdc2214.o --omf_browse ..\obj\fdc2214.crf --depend ..\obj\fdc2214.d)
 I (..\HARDWARE\FDC2214\fdc2214.h)(0x5B52EF63)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -354,7 +355,47 @@ I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
 I (..\HARDWARE\LED\led.h)(0x5B546EDD)
 I (..\SYSTEM\usart\usart.h)(0x5B4E0CC3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x585D2641)
-F (..\SYSTEM\delay\delay.c)(0x5B4E0C6B)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\delay.o --omf_browse ..\obj\delay.crf --depend ..\obj\delay.d)
+F (..\HARDWARE\BEEP\beep.c)(0x5B558B9A)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\beep.o --omf_browse ..\obj\beep.crf --depend ..\obj\beep.d)
+I (..\HARDWARE\BEEP\beep.h)(0x5B5586D0)
+I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
+I (..\USER\stm32f4xx.h)(0x542BA483)
+I (..\CORE\core_cm4.h)(0x53C7D530)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (..\CORE\core_cmInstr.h)(0x53C7D530)
+I (..\CORE\core_cmFunc.h)(0x53C7D530)
+I (..\CORE\core_cm4_simd.h)(0x53C7D530)
+I (..\USER\system_stm32f4xx.h)(0x53DBA499)
+I (..\USER\stm32f4xx_conf.h)(0x53DBB3CB)
+I (..\FWLIB\inc\stm32f4xx_adc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_crc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dbgmcu.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dma.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_exti.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_flash.h)(0x53DF9330)
+I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_i2c.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_iwdg.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_pwr.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_rtc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_sdio.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_spi.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_tim.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_usart.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_wwdg.h)(0x53DBAFAD)
+I (..\FWLIB\inc\misc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_cryp.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_hash.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_rng.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
+I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
+I (..\HARDWARE\LCD\lcd.h)(0x5B4E0D47)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+F (..\SYSTEM\delay\delay.c)(0x5B4E0C6B)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\delay.o --omf_browse ..\obj\delay.crf --depend ..\obj\delay.d)
 I (..\SYSTEM\delay\delay.h)(0x5B4E0CCB)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -391,7 +432,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\SYSTEM\sys\sys.c)(0x5B4F16FD)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\sys.o --omf_browse ..\obj\sys.crf --depend ..\obj\sys.d)
+F (..\SYSTEM\sys\sys.c)(0x5B4F16FD)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\sys.o --omf_browse ..\obj\sys.crf --depend ..\obj\sys.d)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -427,7 +468,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\SYSTEM\usart\usart.c)(0x5B4E0C98)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\usart.o --omf_browse ..\obj\usart.crf --depend ..\obj\usart.d)
+F (..\SYSTEM\usart\usart.c)(0x5B4E0C98)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\usart.o --omf_browse ..\obj\usart.crf --depend ..\obj\usart.d)
 I (..\SYSTEM\sys\sys.h)(0x5B4F16BB)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -466,7 +507,7 @@ I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 I (..\SYSTEM\usart\usart.h)(0x5B4E0CC3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x585D2641)
 F (..\CORE\startup_stm32f40_41xxx.s)(0x53DBBC53)(--cpu Cortex-M4.fp -g --apcs=interwork -I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 514" --pd "STM32F40_41xxx SETA 1"--list ..\obj\startup_stm32f40_41xxx.lst --xref -o ..\obj\startup_stm32f40_41xxx.o --depend ..\obj\startup_stm32f40_41xxx.d)
-F (..\FWLIB\src\misc.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\misc.o --omf_browse ..\obj\misc.crf --depend ..\obj\misc.d)
+F (..\FWLIB\src\misc.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\misc.o --omf_browse ..\obj\misc.crf --depend ..\obj\misc.d)
 I (..\FWLIB\inc\misc.h)(0x53DBAFAD)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -501,7 +542,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\FWLIB\src\stm32f4xx_gpio.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_gpio.o --omf_browse ..\obj\stm32f4xx_gpio.crf --depend ..\obj\stm32f4xx_gpio.d)
+F (..\FWLIB\src\stm32f4xx_gpio.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_gpio.o --omf_browse ..\obj\stm32f4xx_gpio.crf --depend ..\obj\stm32f4xx_gpio.d)
 I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x53DBAFAD)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -536,7 +577,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\FWLIB\src\stm32f4xx_syscfg.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_syscfg.o --omf_browse ..\obj\stm32f4xx_syscfg.crf --depend ..\obj\stm32f4xx_syscfg.d)
+F (..\FWLIB\src\stm32f4xx_syscfg.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_syscfg.o --omf_browse ..\obj\stm32f4xx_syscfg.crf --depend ..\obj\stm32f4xx_syscfg.d)
 I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x53DBAFAD)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -571,7 +612,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\FWLIB\src\stm32f4xx_usart.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_usart.o --omf_browse ..\obj\stm32f4xx_usart.crf --depend ..\obj\stm32f4xx_usart.d)
+F (..\FWLIB\src\stm32f4xx_usart.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_usart.o --omf_browse ..\obj\stm32f4xx_usart.crf --depend ..\obj\stm32f4xx_usart.d)
 I (..\FWLIB\inc\stm32f4xx_usart.h)(0x53DBAFAD)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -606,7 +647,7 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\FWLIB\src\stm32f4xx_fsmc.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_fsmc.o --omf_browse ..\obj\stm32f4xx_fsmc.crf --depend ..\obj\stm32f4xx_fsmc.d)
+F (..\FWLIB\src\stm32f4xx_fsmc.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_fsmc.o --omf_browse ..\obj\stm32f4xx_fsmc.crf --depend ..\obj\stm32f4xx_fsmc.d)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -641,7 +682,7 @@ I (..\FWLIB\inc\stm32f4xx_rng.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
-F (..\FWLIB\src\stm32f4xx_rcc.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_rcc.o --omf_browse ..\obj\stm32f4xx_rcc.crf --depend ..\obj\stm32f4xx_rcc.d)
+F (..\FWLIB\src\stm32f4xx_rcc.c)(0x53DBB014)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork -I..\CORE -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\HARDWARE\LED -I..\HARDWARE\LCD -I..\HARDWARE\IIC -I..\HARDWARE\MPU6050 -I..\HARDWARE\MPU6050\eMPL -I..\FWLIB\inc -I..\HARDWARE\KEY -I..\USMART -I..\HARDWARE\ADC -I..\HARDWARE\DAC -I..\HARDWARE\TIMER -I..\HARDWARE\MYPID -I..\HARDWARE\MATRIXKEY -I..\HARDWARE\STEPMOTOR -I..\HARDWARE\FDC2214 -I..\HARDWARE\NIXIETUBE -I..\HARDWARE\LCD -I..\HARDWARE\FDC22142 -I..\HARDWARE\BEEP-I C:\Users\Treaser\Desktop\GestureRecognition\GestureRecognition\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_rcc.o --omf_browse ..\obj\stm32f4xx_rcc.crf --depend ..\obj\stm32f4xx_rcc.d)
 I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x53DBAFAD)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -676,4 +717,4 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\readme.txt)(0x5B51EDC5)()
+F (..\readme.txt)(0x00000000)()

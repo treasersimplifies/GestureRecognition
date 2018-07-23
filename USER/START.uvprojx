@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\TIMER;..\HARDWARE\MYPID;..\HARDWARE\MATRIXKEY;..\HARDWARE\STEPMOTOR;..\HARDWARE\FDC2214;..\HARDWARE\NIXIETUBE;..\HARDWARE\LCD;..\HARDWARE\FDC22142</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\IIC;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\FWLIB\inc;..\HARDWARE\KEY;..\USMART;..\HARDWARE\ADC;..\HARDWARE\DAC;..\HARDWARE\TIMER;..\HARDWARE\MYPID;..\HARDWARE\MATRIXKEY;..\HARDWARE\STEPMOTOR;..\HARDWARE\FDC2214;..\HARDWARE\NIXIETUBE;..\HARDWARE\LCD;..\HARDWARE\FDC22142;..\HARDWARE\BEEP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -457,6 +457,11 @@
               <FileName>fdc2214.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\FDC2214\fdc2214.c</FilePath>
+            </File>
+            <File>
+              <FileName>beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\BEEP\beep.c</FilePath>
             </File>
           </Files>
         </Group>

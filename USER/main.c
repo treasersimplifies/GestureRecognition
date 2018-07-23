@@ -3,24 +3,40 @@
 #include "usart.h"
 #include "math.h"
 
+#include "beep.h"
 #include "led.h"
 #include "key.h"
 #include "lcd.h"
 
 #include "matrixkey.h"
 #include "fdc2214.h"
-
-
-//Pins used：  
-
+//****Pins used：  
+//*Matrix keys:
 //1.PB0-PB3/PA0-PA3 : 4X4 matrix keys
+
+//*fdc2214:
 //2.PC4(SCL) PC5(SDA) ： I2C for fdc2214 PC
 //3.PC6(SCL) PC7(SDA)
+
+//*LCD:
 //4.PB15,PD0,PD1,PD4,PD5,PD8,PD9,PD10,PD14,PD15,PE7~15,PF12,PG12: LCD;
+
+//*Mode keys:
 //5.PF1 3 5:波妞开关,决定一些内部状态
+
+//*LED:
 //6.PA11 12 13 14 15 为状态指示LED
 //7.PG2 3 4 5 6为辅助识别指示灯
  
+//*BEEP piano out
+//8.PF7
+ 
+//***关于拨码开关及模式选择的说明：（因为太复杂，连程序员自己都要写一个手册来记住怎么使用这个功能了 =_= ）
+//1.复位时所有拨码开关都不拨，则正常模式。
+//2.复位时将1号拨码(PF1)开关上拨on，则为动态模式。
+//3.复位时将2号拨码(PF3)开关上拨on，即PF3in检测为低，进入动态模式。然后再将拨码开关来拨回去还off，
+//然后按A、B。则进入了A-12345手势、B-石头剪刀布手势动态识别模式。
+//4.复位时将3号拨码(PF5)开关上拨on，则为钢琴模式。根据电容值来奏响蜂鸣器。
 
 #define TSAMPLETIMES 10//train sample times
 #define DSAMPLETIMES 5//detect sample times
@@ -38,6 +54,9 @@ float measurebuffer[10];
 //使用波妞开关改变：
 int printfmode=1;//mode 
 int compensation = 0;
+int dynamicmode=0;
+int pianomode=0;
+
 //
 int mode=0;//=0:training, =1:detect
 int current_gesture=0;//1:1,2:2,6:ST,7:JD,8:B
@@ -45,7 +64,8 @@ int train_status=2;//=1:train finished, =-1:failed =0:training
 int current_key=0;//1:1,16:D
 float C0,C1,C2,C3,C4=0;
 float ZC0,ZC1,ZC2,ZC3,ZC4=0;
-
+float temp0;//float temp1,temp2,temp3;初始电容值
+float Ztemp0;//float Ztemp1,Ztemp2,Ztemp3;初始Z电容值
 
 float MaxRange(float measurebuffer[],int len){//返回数组最大最小的差值
 	int i=0;
@@ -243,6 +263,9 @@ int Parse_Key(int row,int column,float fdc2214temp){
 			POINT_COLOR=BLUE;
 			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
 			LCD_ShowString(260,30,100,16,16,"ST ");
+			POINT_COLOR=BLACK;
+			LCD_ShowString(30,230,210,16,16,"Last recognized: ");
+			LCD_ShowString(260,230,100,16,16,"ST  ");
 			LED_gestureST_on();
 			printf("recognized : gesture ST .\r\n");
 		}
@@ -250,6 +273,9 @@ int Parse_Key(int row,int column,float fdc2214temp){
 			POINT_COLOR=BLUE;
 			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
 			LCD_ShowString(260,30,100,16,16,"JD ");
+			POINT_COLOR=BLACK;
+			LCD_ShowString(30,230,210,16,16,"Last recognized: ");
+			LCD_ShowString(260,230,100,16,16,"JD  ");
 			LED_gestureJD_on();
 			printf("recognized : gesture JD .\r\n");
 		}
@@ -257,6 +283,9 @@ int Parse_Key(int row,int column,float fdc2214temp){
 			POINT_COLOR=BLUE;
 			LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
 			LCD_ShowString(260,30,100,16,16,"B  ");
+			POINT_COLOR=BLACK;
+			LCD_ShowString(30,230,210,16,16,"Last recognized: ");
+			LCD_ShowString(260,230,100,16,16,"B  ");
 			LED_gestureB_on();
 			printf("recognized : gesture B .\r\n");
 			//LCD_ShowNum(220,170,mean_g[7]*100,3,16);
@@ -281,6 +310,9 @@ int Parse_Key(int row,int column,float fdc2214temp){
 				POINT_COLOR=BLUE;
 				LCD_ShowString(30,30,210,16,16,"Gesture Recognized:  ");
 				LCD_ShowNum(260,30,i,2,16);
+				POINT_COLOR=BLACK;
+				LCD_ShowString(30,230,210,16,16,"Last recognized: ");
+				LCD_ShowNum(260,230,i,2,16);
 				LED_gesture_on(i);
 				printf("recognized : gesture %d.\r\n",i);
 				break;
@@ -290,12 +322,16 @@ int Parse_Key(int row,int column,float fdc2214temp){
 					POINT_COLOR=BLUE;
 					LCD_ShowString(30,30,180,16,16,"Gesture Recognized:  ");
 					LCD_ShowNum(260,30,i,2,16);
+					POINT_COLOR=BLACK;
+					LCD_ShowString(30,230,210,16,16,"Last recognized: ");
+					LCD_ShowNum(260,230,i,2,16);
 					LED_gesture_on(i);
 					printf("recognized : gesture %d.\r\n",i);
 				}
 			}
 		}
-		delay_ms(200);//
+		
+		delay_ms(300);//
 		
 	}
 	
@@ -321,7 +357,18 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		LCD_ShowNum(220,190,mean_g[3]*100,3,16);
 		LCD_ShowNum(260,190,mean_g[4]*100,3,16);
 	}
+	else if(equal2(row,column,3,4)){//CXc
+		temp0 = Cap_Calculate(0);
 	
+		Ztemp0 = ZCap_Calculate(0);
+	
+		printf("temp0 = %f,Ztemp0 = %f. \r\n",temp0,Ztemp0);
+		LCD_ShowString(30,50,100,16,16,"C:temp0=");
+		LCD_ShowNum(120,50,temp0,3,16);
+		LCD_ShowString(170,50,100,16,16," Z=");
+		LCD_ShowNum(210,50,Ztemp0,3,16);
+		LCD_ShowString(260,50,100,16,16," pf");
+	}
 	/*
 	else if(equal2(row,column,3,1)){//7
 		printfmode++;
@@ -334,14 +381,18 @@ int Parse_Key(int row,int column,float fdc2214temp){
 	return 0;
 }
 
-void LCD_Shining(){
-	
+
+void LCD_Shining(void){
 	LCD_Clear(WHITE);
 	POINT_COLOR=BLACK;	  
-	if(compensation ==0)
-		LCD_ShowString(30,10,210,16,16,"Current Mode: Normal");
-	else
+	if(compensation ==1)
 		LCD_ShowString(30,10,210,16,16,"Current Mode: Compensation");
+	else if(dynamicmode ==1)
+		LCD_ShowString(30,10,210,16,16,"Current Mode: Dynamic     ");
+	else if(pianomode==1)
+		LCD_ShowString(30,10,210,16,16,"Current Mode: Piano       ");
+	else
+		LCD_ShowString(30,10,210,16,16,"Current Mode: Normal      ");
 	LCD_ShowString(30,30,210,16,16,"Gssture Recognized:  ");
 		//LCD_ShowString(30,40,210,24,24,"Mode:Judging");
 		//LCD_ShowString(30,70,200,16,16,"posture:paper");
@@ -366,6 +417,7 @@ void LCD_Shining(){
 		LCD_ShowString(30,210,210,16,16,"Train Status: ");
 	
  	//LCD_ShowString(30,130,210,24,24,lcd_id);		//显示LCD ID
+	LCD_ShowString(30,230,210,16,16,"Last recognized: ");
 	
 	POINT_COLOR=BROWN;
 	LCD_ShowString(30,250,180,16,16,"***** Function of Keys ******");
@@ -424,35 +476,40 @@ void LCD_ShowNormalC(){
 	LCD_ShowString(250,150,100,16,16,"/100 pf");
 }
 
+
 int main(void)
 { 
 	int mine_or_others=1;
 	int row=0;
 	int column=0;
-	//int i=0;
+	int i=0;
 	
 	float res0;//float res1,res2,res3;
 	float Zres0;//float Zres1,Zres2,Zres3;
-	float temp0;//float temp1,temp2,temp3;
-	float Ztemp0;//float Ztemp1,Ztemp2,Ztemp3;
+	
+	
 	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	delay_init(168);  			//初始化延时函数
 	uart_init(9600);			//初始化串口波特率为50,0000//460800:OK
 	LED_Init();					//初始化LED 
 	KEY_Init();					//初始化按键
+	BEEP_Init();
  	LCD_Init();				    //LCD初始化
-	//TIM3_Int_Init(1000-1,8400-1);	//Timer for PID 定时器时钟84M，分频系数8400，所以84M/8400=10Khz的计数频率，计数1000次为100ms，every 0.1s一次中断 
-	MATRI4X4KEY_Init();
-	while(FDC2214_Init());
-	while(ZFDC2214_Init());
-	printf("Init OK \r\n.");
-	delay_ms(1000);//延时1s使得这是手可以缩回防止手放在复位按钮时影响电容。
+	MATRI4X4KEY_Init();			//矩阵键盘初始化
 	
-	if(PFin(1)==0)
+	//fdc2214 init :
+	while(FDC2214_Init());
+	for(i=0;i<5;i++){//第二个fdc2214只尝试5次
+		ZFDC2214_Init();
+		delay_ms(50);
+	}
+	
+	if(PFin(1)==0)//拨码开关=ON，则为0
 		compensation=1;
-	else
-		compensation=0;
+	
+	dynamicmode=!PFin(3);
+	pianomode=!PFin(5);
 	
 	if(PFin(3)==1&&PFin(5)==1)
 		printfmode=1;
@@ -462,6 +519,10 @@ int main(void)
 		printfmode=3;
 	else if(PFin(3)==0&&PFin(5)==0)
 		printfmode=4;
+	
+	LCD_ShowString(30,210,210,16,16,"Init Status: OK.");
+	printf("Init OK \r\n.");
+	delay_ms(1000);//延时1s使得这是手可以缩回防止手放在复位按钮时影响电容。
 	
 	temp0 = Cap_Calculate(0);
 	//temp1 = Cap_Calculate(1);//读取初始值******
@@ -475,6 +536,7 @@ int main(void)
 	printf("temp0 = %f,Ztemp0 = %f. \r\n",temp0,Ztemp0);
 	
 	LCD_Shining();
+	
 	LCD_ShowString(30,50,100,16,16,"C:temp0=");
 	LCD_ShowNum(120,50,temp0,3,16);
 	LCD_ShowString(170,50,100,16,16," Z=");
@@ -492,8 +554,17 @@ int main(void)
 		LCD_ShowString(30,330,180,12,12,"B:Detection of 12345");
 		LCD_ShowString(30,270,180,12,12,"A:Detection of STJDB");
 		
-		row= -1;
-		column= -1;
+		if(dynamicmode==0){
+			row= -1;
+			column= -1;
+		}
+		else if(dynamicmode==1){
+			MATRI4_4KEY_Scan(&row, &column);
+			while(!PFin(3)){
+				Parse_Key(row,column,temp0);
+			}
+		}
+
 		res0 = Cap_Calculate(0);//采集数据
 		//res1 = Cap_Calculate(1);
 		//res2 = Cap_Calculate(2);
@@ -524,15 +595,29 @@ int main(void)
 		if(printfmode ==3)printf("CH0 res=%f, ZCH0 res=%f \r\n",res0,Zres0);
 		if(printfmode ==4)printf("CH0 abs =%3.3f, ZCH0 abs =%3.3f \r\n",fabs(res0-temp0),fabs(Zres0-Ztemp0));
 		
-		if(MATRI4_4KEY_Scan(&row, &column)==0)
-			printf("key pressed row=%d, column=%d \r\n",row,column);
-		
-		if(mine_or_others==1){
-			if(compensation==1)
-				Parse_Key(row,column,temp0-Ztemp0);
-			else
-				Parse_Key(row,column,temp0);
+
+		if(pianomode==1){
+			while(!PFin(5)){
+				res0 = Cap_Calculate(0);//采集数据
+				dynamicmode=!PFin(3);
+				C0=res0-temp0;
+				if(dynamicmode==1)
+					Piano(C0*100);
+				LCD_ShowNormalC();
+				delay_ms(5);
+			}
 		}
+		else{
+			if(MATRI4_4KEY_Scan(&row, &column)==0)
+				printf("key pressed row=%d, column=%d \r\n",row,column);
+			if(mine_or_others==1){
+				if(compensation==1)
+					Parse_Key(row,column,temp0-Ztemp0);
+				else
+					Parse_Key(row,column,temp0);
+			}
+		}
+		
 		delay_ms(400);
 	} 	
 }
