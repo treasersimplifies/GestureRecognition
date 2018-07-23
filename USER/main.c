@@ -15,11 +15,11 @@
 //1.PB0-PB3/PA0-PA3 : 4X4 matrix keys
 
 //*fdc2214:
-//2.PC4(SCL) PC5(SDA) ： I2C for fdc2214 PC
-//3.PC6(SCL) PC7(SDA)
+//2.PC4(SCL) PC5(SDA) ： I2C for fdc2214
+//3.PC6(SCL) PC7(SDA) ： I2C for Zfdc2214
 
 //*LCD:
-//4.PB15,PD0,PD1,PD4,PD5,PD8,PD9,PD10,PD14,PD15,PE7~15,PF12,PG12: LCD;
+//4.PB15,PD0,PD1,PD4,PD5,PD8,PD9,PD10,PD14,PD15,PE7~15,PF12,PG12;
 
 //*Mode keys:
 //5.PF1 3 5:波妞开关,决定一些内部状态
@@ -34,9 +34,9 @@
 //***关于拨码开关及模式选择的说明：（因为太复杂，连程序员自己都要写一个手册来记住怎么使用这个功能了 =_= ）
 //1.复位时所有拨码开关都不拨，则正常模式。
 //2.复位时将1号拨码(PF1)开关上拨on，则为动态模式。
-//3.复位时将2号拨码(PF3)开关上拨on，即PF3in检测为低，进入动态模式。然后再将拨码开关来拨回去还off，
-//然后按A、B。则进入了A-12345手势、B-石头剪刀布手势动态识别模式。
-//4.复位时将3号拨码(PF5)开关上拨on，则为钢琴模式。根据电容值来奏响蜂鸣器。
+//3.复位后将2号拨码(PF3)开关上拨on，即PF3in检测为低，进入动态模式。然后再将拨码开关来拨回去还off，然后可以进行训练，训练完了后，
+//同时按住A、B+将拨码向上拨。则进入了A-12345手势、B-石头剪刀布手势动态识别模式。
+//4.复位时将3号拨码(PF5)开关上拨on，然后再将2号拨码向上拨，则进入弹钢琴模式。
 
 #define TSAMPLETIMES 10//train sample times
 #define DSAMPLETIMES 5//detect sample times
@@ -335,10 +335,13 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		
 	}
 	
-	//其他功能性按键：//9,0,C,7,8
+	//其他功能性按键：//9,C
 	
-	else if(equal2(row,column,3,3)){//9,printf existed data.
+	else if(equal2(row,column,3,3)){//9,printf all existed data.
 		int i=0;
+		
+		POINT_COLOR=BLACK;
+		LCD_ShowString(30,420,200,12,12,"9:show ALL training data");
 		for(i=0;i<5;i++){
 			printf("Mean of gesture %d = %f, Uncertainty = %f\r\n",i+1,mean_g[i],unst_g[i]);
 		}
@@ -357,7 +360,9 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		LCD_ShowNum(220,190,mean_g[3]*100,3,16);
 		LCD_ShowNum(260,190,mean_g[4]*100,3,16);
 	}
-	else if(equal2(row,column,3,4)){//CXc
+	else if(equal2(row,column,3,4)){//C, reset cap value
+		POINT_COLOR=BLACK;
+		LCD_ShowString(30,435,180,12,12,"C:reset cap value");	
 		temp0 = Cap_Calculate(0);
 	
 		Ztemp0 = ZCap_Calculate(0);
@@ -369,15 +374,7 @@ int Parse_Key(int row,int column,float fdc2214temp){
 		LCD_ShowNum(210,50,Ztemp0,3,16);
 		LCD_ShowString(260,50,100,16,16," pf");
 	}
-	/*
-	else if(equal2(row,column,3,1)){//7
-		printfmode++;
-		if(printfmode==5)
-			printfmode =1;
-	}
-	else if(equal2(row,column,3,2)){//8
-		compensation = 1;
-	}*/
+
 	return 0;
 }
 
@@ -436,9 +433,7 @@ void LCD_Shining(void){
 	LCD_ShowString(30,405,180,12,12,"5:gesture 5 UNtrained");
 
 	LCD_ShowString(30,420,200,12,12,"9:show ALL training data");
-	LCD_ShowString(30,435,180,12,12,"7:change printfmode");
-	LCD_ShowString(30,450,240,12,12,"8:change compensation mode");
-	
+	LCD_ShowString(30,435,180,12,12,"C:reset cap value");	
 	//MAX=450
 }
 
@@ -511,15 +506,6 @@ int main(void)
 	dynamicmode=!PFin(3);
 	pianomode=!PFin(5);
 	
-	if(PFin(3)==1&&PFin(5)==1)
-		printfmode=1;
-	else if(PFin(3)==1&&PFin(5)==0)
-		printfmode=2;
-	else if(PFin(3)==0&&PFin(5)==1)
-		printfmode=3;
-	else if(PFin(3)==0&&PFin(5)==0)
-		printfmode=4;
-	
 	LCD_ShowString(30,210,210,16,16,"Init Status: OK.");
 	printf("Init OK \r\n.");
 	delay_ms(1000);//延时1s使得这是手可以缩回防止手放在复位按钮时影响电容。
@@ -553,7 +539,10 @@ int main(void)
 		POINT_COLOR=BROWN;
 		LCD_ShowString(30,330,180,12,12,"B:Detection of 12345");
 		LCD_ShowString(30,270,180,12,12,"A:Detection of STJDB");
+		LCD_ShowString(30,420,200,12,12,"9:show ALL training data");
+		LCD_ShowString(30,435,180,12,12,"C:reset cap value");
 		
+		dynamicmode=!PFin(3);
 		if(dynamicmode==0){
 			row= -1;
 			column= -1;
